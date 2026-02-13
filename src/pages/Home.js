@@ -19,9 +19,9 @@ const Home = () => {
   const category = searchParams.get('category') || '';
   const page = Number(searchParams.get('page')) || 1;
 
-useEffect(() => {
-  fetchProducts();
-}, [fetchProducts]);
+  useEffect(() => {
+    fetchProducts();
+  }, [keyword, category, page]);
 
   const fetchProducts = async () => {
     try {
