@@ -17,18 +17,11 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const [reviewData, setReviewData] = useState({ rating: 5, comment: '' });
   const [submitting, setSubmitting] = useState(false);
-useEffect(() => {
-  const fetchProduct = async () => {
-    try {
-      const { data } = await api.get(`/products/${id}`);
-      setProduct(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
-  fetchProduct();
-}, [id]);
+  useEffect(() => {
+    fetchProduct();
+  }, [id]);
+
   const fetchProduct = async () => {
     try {
       setLoading(true);
