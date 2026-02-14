@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Use environment variable or default to localhost:5000/api
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+// Use environment variable or default to Render backend URL
+const API_URL = process.env.REACT_APP_API_URL || 'https://e-commerce1-backend-82pe.onrender.com';
 
 // Create axios instance
 const api = axios.create({
