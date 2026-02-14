@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 const ProductCard = ({ product }) => {
+  const { addToCart } = useCart();
+  const [adding, setAdding] = useState(false);
+  const [added, setAdded] = useState(false);
+
+  const handleAddToCart = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (product.stock <= 0) return;
+    
+    setAdding(true);
+    const result = await addToCart(product._id, 1);
+    setAdding(false);
+    
+    if (result.success) {
+      setAdded(true);
+      setTimeout(() => setAdded(false), 2000);
+    }
+  };
+
   return (
     <div className="product-card">
       <Link to={`/product/${product._id}`}>
@@ -28,6 +49,24 @@ const ProductCard = ({ product }) => {
         ) : (
           <span style={{ color: '#ef4444', fontSize: '0.75rem' }}>Out of Stock</span>
         )}
+        <button
+          className="add-to-cart-btn"
+          onClick={handleAddToCart}
+          disabled={adding || product.stock <= 0}
+          style={{
+            marginTop: '10px',
+            width: '100%',
+            padding: '10px',
+            backgroundColor: added ? '#10b981' : '#007bff',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: product.stock > 0 ? 'pointer' : 'not-allowed',
+            opacity: adding ? 0.7 : 1,
+          }}
+        >
+          {adding ? 'Adding...' : added ? 'Added to Cart!' : 'Add to Cart'}
+        </button>
       </div>
     </div>
   );
