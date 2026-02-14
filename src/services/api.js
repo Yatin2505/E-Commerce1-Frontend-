@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-// Use environment variable or default to Render backend URL
-const API_URL = process.env.REACT_APP_API_URL || 'https://e-commerce1-backend-82pe.onrender.com';
 
 // Create axios instance
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: 'https://e-commerce1-backend-82pe.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   },
