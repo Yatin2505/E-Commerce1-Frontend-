@@ -30,14 +30,22 @@ const Home = () => {
       setError(null);
       const params = { page, keyword, category };
       const response = await productAPI.getProducts(params);
-      setProducts(response.data.products);
-      setPagination({
-        page: response.data.page,
-        pages: response.data.pages,
-        total: response.data.total,
-      });
+      
+      // Check if response and data exist
+      if (response && response.data) {
+        setProducts(response.data.products || []);
+        setPagination({
+          page: response.data.page || 1,
+          pages: response.data.pages || 1,
+          total: response.data.total || 0,
+        });
+      } else {
+        setProducts([]);
+        setPagination({ page: 1, pages: 1, total: 0 });
+      }
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to fetch products');
+      setError(err.response?.data?.message || err.message || 'Failed to fetch products');
+      setProducts([]);
     } finally {
       setLoading(false);
     }
