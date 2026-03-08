@@ -77,4 +77,13 @@ export const orderAPI = {
   cancelOrder: (id) => api.put(`/orders/${id}/cancel`),
 };
 
+// Wishlist APIs
+export const wishlistAPI = {
+  getWishlist: () => api.get('/wishlist'),
+  addToWishlist: (productId) => api.post('/wishlist', { productId }),
+  removeFromWishlist: (productId) => api.delete(`/wishlist/${productId}`),
+  clearWishlist: () => api.delete('/wishlist'),
+  checkProductInWishlist: (productId) => api.get(`/wishlist/check/${productId}`),
+};
+
 export default api;
